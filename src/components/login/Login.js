@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './Login.scss'
 import { useHistory } from 'react-router-dom';
 import { login } from '../services/userService';
 import { toast } from 'react-toastify';
+import { UserContext } from "./../../context/UserContext.js"
 function Login(props) {
+    let { loginContext } = useContext(UserContext);
     const [valueLogin, setValueLogin] = useState("");
     const [password, setPassword] = useState("");
+
     const history = useHistory();
     const getRegisterPage = () => {
         history.push('/register')
@@ -56,13 +59,22 @@ function Login(props) {
             const serverData = await response;
             if (serverData && +serverData.EC === 0 && serverData.EM) {
                 toast.success(serverData.EM);
+                console.log(serverData.DT);
+                const scope = serverData.DT.scope;
+                const email = serverData.DT.email;
+                const username = serverData.DT.username;
                 let data = {
                     isAuthenticated: true,
-                    token: "fake token"
+                    token: "fake token",
+                    account: { scope, email, username }
                 }
-                sessionStorage.setItem("account", JSON.stringify(data));//session storage 
+                console.log("check data: ", data)
+                // await new Promise(resolve => {
+                loginContext(data);
+                // setTimeout(resolve, 0); // Đợi cho đến khi trạng thái cập nhật
+                // });
                 history.push("/users")
-                window.location.reload(true);
+                // window.location.reload(true);
                 return;
             }
             else {
@@ -70,19 +82,13 @@ function Login(props) {
                 history.push("/login")
                 return;
             }
-            console.log("check data>>", response);
         }
         else {
             history.push('/login')
         }
 
     }
-    useEffect(() => {
-        let session = sessionStorage.getItem("account");
-        if (session) {
-            history.push("/")
-        }
-    })
+
     return (
 
         <div className='login-container py-3'>

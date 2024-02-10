@@ -23,7 +23,12 @@ const getGroup = async () => {
     return data;
 }
 const updateUser = async (user) => {
+    console.log("check user>> ", user);
     const data = await axios.put(`/api/v1/user/update`, user);
     return data;
 }
-export { registerNewUser, login, fetchAllUsers, deleteUser, getGroup, updateUser };
+const getUserAccount = async () => {
+    const data = await axios.get(`/api/v1/account`);
+    return data;
+}
+export { registerNewUser, login, fetchAllUsers, deleteUser, getGroup, updateUser, getUserAccount };

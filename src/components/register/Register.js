@@ -73,7 +73,7 @@ function Register(props) {
         const checkValid = isValidInputs();
         if (checkValid) {
             let userData = { email, phone, username, password };
-            userData.group = 1;
+            userData.group = 4;
             console.log("check userData>>", userData);
             const response = await registerNewUser(userData);
             console.log(response);

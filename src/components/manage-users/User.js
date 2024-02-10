@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { fetchAllUsers, deleteUser } from '../services/userService';
 import ReactPaginate from 'react-paginate';
 import { toast, useToast } from 'react-toastify';
 import ModalDelete from './ModalDelete';
 import ModalUser from './ModalUser';
+
 function User(props) {
     const history = useHistory();
     const [listUsers, setListUsers] = useState([]);
@@ -52,7 +53,8 @@ function User(props) {
         await fetchUsers();
     };
     const confirmDeleteUser = async (userData) => {
-        let response = await deleteUser(userData)
+        let response = await deleteUser(userData);
+
         if (response && response && +response.EC === 0 && response.EM) {
             toast.success(response.EM);
             setIsShowDeleteModal(false);
@@ -67,6 +69,10 @@ function User(props) {
     }
     useEffect(() => {
         fetchUsers();
+
+        let c = document.cookie.split(";").reduce((ac, cv, i) => Object.assign(ac, { [cv.split('=')[0]]: cv.split('=')[1] }), {});
+
+        console.log(c);
     }, [currentPage])
     const handlePageClick = async (event) => {
         setCurrentPage(+event.selected + 1);
