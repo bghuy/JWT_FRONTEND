@@ -63,13 +63,15 @@ function Login(props) {
                 const scope = serverData.DT.scope;
                 const email = serverData.DT.email;
                 const username = serverData.DT.username;
+                const token = serverData.DT.access_token;
                 let data = {
                     isAuthenticated: true,
-                    token: "fake token",
+                    token: token,
                     account: { scope, email, username }
                 }
                 console.log("check data: ", data)
                 // await new Promise(resolve => {
+                localStorage.setItem('jwt', token);
                 loginContext(data);
                 // setTimeout(resolve, 0); // Đợi cho đến khi trạng thái cập nhật
                 // });

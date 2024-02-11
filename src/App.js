@@ -11,7 +11,7 @@ import {
   BrowserRouter as Router,
 } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
-import { ColorRing } from 'react-loader-spinner'
+import { RotatingLines } from 'react-loader-spinner'
 import { UserContext } from './context/UserContext'
 function App() {
   const [userChanged, setUserChanged] = useState(false);
@@ -25,14 +25,16 @@ function App() {
     <Router>
       {user && user.isLoading === true ?
         <div className='loading-container'>
-          <ColorRing
+          <RotatingLines
             visible={true}
-            height="80"
-            width="80"
-            ariaLabel="color-ring-loading"
+            height="96"
+            width="96"
+            color="grey"
+            strokeWidth="5"
+            animationDuration="0.75"
+            ariaLabel="rotating-lines-loading"
             wrapperStyle={{}}
-            wrapperClass="color-ring-wrapper"
-            colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+            wrapperClass=""
           />
           <div>Loading data...</div>
         </div>
