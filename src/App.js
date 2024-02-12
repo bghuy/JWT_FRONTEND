@@ -1,7 +1,7 @@
 
 
 import './App.scss'
-import Nav from './components/navigation/Nav';
+import NavHeader from './components/navigation/NavHeader.js';
 import "bootstrap/dist/css/bootstrap.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -42,7 +42,7 @@ function App() {
         :
         <>
           <div className='app-header'>
-            <Nav />
+            <NavHeader />
           </div>
           <div className='app-container'>
             <AppRoutes />
