@@ -31,7 +31,7 @@ instance.interceptors.response.use(function (response) {
     switch (status) {
         // authentication (token related issues)
         case 401: {
-            // toast.error("Unauthorized the user, please login ...");
+            toast.error("Unauthorized the user, please login ...");
             // window.location.href("/login");
             return error && error.response.data;
             // return Promise.reject(error);

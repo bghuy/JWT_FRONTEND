@@ -31,4 +31,8 @@ const getUserAccount = async () => {
     const data = await axios.get(`/api/v1/account`);
     return data;
 }
-export { registerNewUser, login, fetchAllUsers, deleteUser, getGroup, updateUser, getUserAccount };
+const logout = async () => {
+    const data = await axios.post('/api/v1/user/logout');
+    return data;
+}
+export { registerNewUser, login, fetchAllUsers, deleteUser, getGroup, updateUser, getUserAccount, logout };

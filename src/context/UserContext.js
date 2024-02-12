@@ -37,8 +37,10 @@ const UserProvider = ({ children }) => {
                 console.error('Error fetching data:', error);
             }
         }
-        if (window.location.pathname !== "/" || window.location.pathname !== "/login") {
+        if (window.location.pathname !== "/" && window.location.pathname !== "/login") {
             getAccount();
+        } else {
+            setUser({ ...user, isLoading: false })
         }
 
     }, [])
@@ -51,15 +53,12 @@ const UserProvider = ({ children }) => {
         setUser({ ...userData, isLoading: false });
     };
 
-    const logout = () => {
-        setUser((user) => ({
-            name: '',
-            auth: false,
-        }));
+    const logoutContext = () => {
+        setUser({ ...userDefault, isLoading: false });
     };
 
     return (
-        <UserContext.Provider value={{ user, loginContext, logout }}>
+        <UserContext.Provider value={{ user, loginContext, logoutContext }}>
             {children}
         </UserContext.Provider>
     );
